@@ -9,27 +9,47 @@
 <body>
     <div class="container">
         <h1>Fuel Consumption Calculator</h1>
+        
         <form id="fuel-calculator-form">
-            <div class="form-group">
-                <label for="fuel-type">Select Fuel Type:</label>
-                <select id="fuel-type" required>
-                    <option value="">--Select Fuel Type--</option>
-                    <DIESEL, GASOLINE >
-                </select>
-            </div>
-            <div class="form-group">
-                <label for="fuel-amount">Enter Fuel Amount:</label>
-                <input type="number" id="fuel-amount" required>
-            </div>
-            <div class="form-group">
-                <label for="unit">Select Unit:</label>
-                <select id="unit" required>
-                    <option value="">--Select Unit--</option>
-                    <option value="liters">Liters</option>
-                    <option value="tonnes">Tonnes</option>
-                    <option value="BTU">BTU</option>
-                </select>
-            </div>
+            <table id="fuel-table">
+                <thead>
+                    <tr>
+                        <th>Fuel Type</th>
+                        <th>Fuel Amount</th>
+                        <th>Unit</th>
+                        <th>Action</th>
+                    </tr>
+                </thead>
+                <tbody id="fuel-rows">
+                    <tr>
+                        <td>
+                            <select required name="fuel-type" class="fuel-type">
+                                <option value="">--Select Fuel Type--</option>
+                                <option value="Diesel">Diesel</option>
+                                <option value="Gasoline">Gasoline</option>
+                                <option value="Natural Gas">Natural Gas</option>
+                                <option value="Coal">Coal</option>
+                                <option value="Heavy Fuel Oil">Heavy Fuel Oil</option>
+                                <option value="LPG">LPG</option>
+                                <option value="Kerosene">Kerosene</option>
+                                <option value="Petrol">Petrol</option>
+                            </select>
+                        </td>
+                        <td><input type="number" required class="fuel-amount" placeholder="Enter amount"></td>
+                        <td>
+                            <select required class="fuel-unit">
+                                <option value="">--Select Unit--</option>
+                                <option value="liters">Liters</option>
+                                <option value="tonnes">Tonnes</option>
+                                <option value="BTU">BTU</option>
+                            </select>
+                        </td>
+                        <td><button type="button" class="remove-row">Remove</button></td>
+                    </tr>
+                </tbody>
+            </table>
+            <button type="button" id="add-row">Add Another Fuel</button>
+
             <div class="form-group">
                 <label for="working-days">Select Working Days:</label>
                 <select id="working-days" required>
@@ -37,10 +57,13 @@
                     <option value="7">7 Days a Week</option>
                 </select>
             </div>
+
             <button type="submit">Calculate Consumption</button>
         </form>
+
         <div id="result" class="result"></div>
     </div>
+
     <script src="scripts/app.js"></script>
 </body>
 </html>
