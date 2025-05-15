@@ -51,5 +51,5 @@ This project does not have any external dependencies and runs entirely in the br
 This project is open-source and available for modification and distribution. Please refer to the LICENSE file for more details.
 
 ## Share the Calculator
-You can share the calculator with others using the following link: (https://github.com/Khaldiso/Consumption-Calculator/blob/main/README.md)
+You can share the calculator with others using the following link: (https://github.com/Khaldiso/Consumption-Calculator)
 )>)
