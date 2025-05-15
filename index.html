@@ -1,69 +1,82 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Factory Fuel Consumption Calculator</title>
-    <link rel="stylesheet" href="styles/main.css">
-</head>
-<body>
-    <div class="container">
-        <h1>Fuel Consumption Calculator</h1>
-        
-        <form id="fuel-calculator-form">
-            <table id="fuel-table">
-                <thead>
-                    <tr>
-                        <th>Fuel Type</th>
-                        <th>Fuel Amount</th>
-                        <th>Unit</th>
-                        <th>Action</th>
-                    </tr>
-                </thead>
-                <tbody id="fuel-rows">
-                    <tr>
-                        <td>
-                            <select required name="fuel-type" class="fuel-type">
-                                <option value="">--Select Fuel Type--</option>
-                                <option value="Diesel">Diesel</option>
-                                <option value="Gasoline">Gasoline</option>
-                                <option value="Natural Gas">Natural Gas</option>
-                                <option value="Coal">Coal</option>
-                                <option value="Heavy Fuel Oil">Heavy Fuel Oil</option>
-                                <option value="LPG">LPG</option>
-                                <option value="Kerosene">Kerosene</option>
-                                <option value="Petrol">Petrol</option>
-                            </select>
-                        </td>
-                        <td><input type="number" required class="fuel-amount" placeholder="Enter amount"></td>
-                        <td>
-                            <select required class="fuel-unit">
-                                <option value="">--Select Unit--</option>
-                                <option value="liters">Liters</option>
-                                <option value="tonnes">Tonnes</option>
-                                <option value="BTU">BTU</option>
-                            </select>
-                        </td>
-                        <td><button type="button" class="remove-row">Remove</button></td>
-                    </tr>
-                </tbody>
-            </table>
-            <button type="button" id="add-row">Add Another Fuel</button>
+document.addEventListener("DOMContentLoaded", function () {
+    const fuelTableBody = document.getElementById("fuel-rows");
+    const addRowBtn = document.getElementById("add-row");
+    const form = document.getElementById("fuel-calculator-form");
+    const resultDiv = document.getElementById("result");
 
-            <div class="form-group">
-                <label for="working-days">Select Working Days:</label>
-                <select id="working-days" required>
-                    <option value="5">5 Days a Week</option>
-                    <option value="7">7 Days a Week</option>
+    // Function to add a new fuel row
+    addRowBtn.addEventListener("click", function () {
+        const newRow = document.createElement("tr");
+        newRow.innerHTML = `
+            <td>
+                <select required name="fuel-type" class="fuel-type">
+                    <option value="">--Select Fuel Type--</option>
+                    <option value="Diesel">Diesel</option>
+                    <option value="Gasoline">Gasoline</option>
+                    <option value="Natural Gas">Natural Gas</option>
+                    <option value="Coal">Coal</option>
+                    <option value="Heavy Fuel Oil">Heavy Fuel Oil</option>
+                    <option value="LPG">LPG</option>
+                    <option value="Kerosene">Kerosene</option>
+                    <option value="Petrol">Petrol</option>
                 </select>
-            </div>
+            </td>
+            <td><input type="number" required class="fuel-amount" placeholder="Enter amount"></td>
+            <td>
+                <select required class="fuel-unit">
+                    <option value="">--Select Unit--</option>
+                    <option value="liters">Liters</option>
+                    <option value="tonnes">Tonnes</option>
+                    <option value="BTU">BTU</option>
+                </select>
+            </td>
+            <td><button type="button" class="remove-row">Remove</button></td>
+        `;
+        fuelTableBody.appendChild(newRow);
+    });
 
-            <button type="submit">Calculate Consumption</button>
-        </form>
+    // Delegate remove row
+    fuelTableBody.addEventListener("click", function (e) {
+        if (e.target.classList.contains("remove-row")) {
+            const row = e.target.closest("tr");
+            row.remove();
+        }
+    });
 
-        <div id="result" class="result"></div>
-    </div>
+    // Handle form submit
+    form.addEventListener("submit", function (e) {
+        e.preventDefault();
+        const rows = document.querySelectorAll("#fuel-rows tr");
+        const workingDays = parseInt(document.getElementById("working-days").value);
+        const totals = {};
 
-    <script src="scripts/app.js"></script>
-</body>
-</html>
+        let hasError = false;
+
+        rows.forEach(row => {
+            const type = row.querySelector(".fuel-type").value;
+            const amount = parseFloat(row.querySelector(".fuel-amount").value);
+            const unit = row.querySelector(".fuel-unit").value;
+
+            if (!type || !unit || isNaN(amount)) {
+                hasError = true;
+                return;
+            }
+
+            if (!totals[unit]) totals[unit] = 0;
+            totals[unit] += amount;
+        });
+
+        if (hasError) {
+            resultDiv.innerHTML = `<span style="color:red;">Please fill in all required fields properly.</span>`;
+            return;
+        }
+
+        // Display results
+        let output = `<h3>Total Weekly Consumption:</h3><ul>`;
+        for (let unit in totals) {
+            output += `<li><strong>${totals[unit].toFixed(2)}</strong> ${unit}</li>`;
+        }
+        output += `</ul><p>Based on ${workingDays} working days per week.</p>`;
+        resultDiv.innerHTML = output;
+    });
+});
