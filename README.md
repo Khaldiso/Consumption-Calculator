@@ -11,19 +11,13 @@ The Factory Fuel Calculator is a web-based application designed to help users ca
 
 ## Project Structure
 ```
-factory-fuel-calculator
-├── public
-│   ├── index.html         # Main HTML document for the user interface
-│   ├── styles
-│   │   └── main.css       # CSS styles for the application
-│   └── scripts
-│       └── app.js         # Client-side JavaScript functionality
-├── src
-│   ├── calculator.js       # Calculator logic for fuel consumption
-│   ├── fuelTypes.js       # Available fuel types
-│   ├── unitConversion.js   # Functions for unit conversion
-│   └── utils.js           # Utility functions for common tasks
-└── README.md              # Project documentation
+project/
+│
+├── index.html
+├── styles/
+│   └── main.css
+└── scripts/
+    └── app.js
 ```
 
 ## Installation
