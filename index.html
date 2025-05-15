@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Factory Fuel Consumption Calculator</title>
+    <link rel="stylesheet" href="styles/main.css">
+</head>
+<body>
+    <div class="container">
+        <h1>Fuel Consumption Calculator</h1>
+        <form id="fuel-calculator-form">
+            <div class="form-group">
+                <label for="fuel-type">Select Fuel Type:</label>
+                <select id="fuel-type" required>
+                    <option value="">--Select Fuel Type--</option>
+                    <!-- Fuel types will be populated here -->
+                </select>
+            </div>
+            <div class="form-group">
+                <label for="fuel-amount">Enter Fuel Amount:</label>
+                <input type="number" id="fuel-amount" required>
+            </div>
+            <div class="form-group">
+                <label for="unit">Select Unit:</label>
+                <select id="unit" required>
+                    <option value="">--Select Unit--</option>
+                    <option value="liters">Liters</option>
+                    <option value="tonnes">Tonnes</option>
+                    <option value="BTU">BTU</option>
+                </select>
+            </div>
+            <div class="form-group">
+                <label for="working-days">Select Working Days:</label>
+                <select id="working-days" required>
+                    <option value="5">5 Days a Week</option>
+                    <option value="7">7 Days a Week</option>
+                </select>
+            </div>
+            <button type="submit">Calculate Consumption</button>
+        </form>
+        <div id="result" class="result"></div>
+    </div>
+    <script src="scripts/app.js"></script>
+</body>
+</html>
